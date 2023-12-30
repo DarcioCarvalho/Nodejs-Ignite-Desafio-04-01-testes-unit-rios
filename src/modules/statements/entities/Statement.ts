@@ -15,6 +15,17 @@ enum OperationType {
   WITHDRAW = 'withdraw',
 }
 
+
+class ColumnNumericTransformer {
+  to(data: number): number {
+    return data;
+  }
+  from(data: string): number {
+    return parseFloat(data);
+  }
+}
+
+
 @Entity('statements')
 export class Statement {
   @PrimaryGeneratedColumn('uuid')
@@ -30,7 +41,9 @@ export class Statement {
   @Column()
   description: string;
 
-  @Column('decimal', { precision: 5, scale: 2 })
+  @Column('decimal', {
+    precision: 5, scale: 2, transformer: new ColumnNumericTransformer()
+  })
   amount: number;
 
   @Column({ type: 'enum', enum: OperationType })

@@ -1,6 +1,6 @@
-import { createConnection, getConnectionOptions } from 'typeorm';
+import { Connection, createConnection, getConnectionOptions } from 'typeorm';
 
-(async (host = "database_finapi") => {
+export default async (host = "database_finapi"): Promise<Connection> => {
   const connectionOptions = await getConnectionOptions();
 
   return await createConnection(
@@ -11,4 +11,4 @@ import { createConnection, getConnectionOptions } from 'typeorm';
         : connectionOptions.database
     })
   );
-})();
+};
